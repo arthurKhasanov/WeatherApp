@@ -115,7 +115,7 @@ class WeatherList {
   late double gust;
   late int clouds;
   late double pop;
-  late double rain;
+  // late double rain;
 
   WeatherList({
     required this.dt,
@@ -129,7 +129,7 @@ class WeatherList {
     required this.speed,
     required this.deg,
     required this.clouds,
-    required this.rain,
+    // required this.rain,
   });
 
   WeatherList.fromJson(Map<String, dynamic> json) {
@@ -152,8 +152,8 @@ class WeatherList {
     deg = json['deg'];
     gust = json['gust'];
     clouds = json['clouds'];
-    pop = json['pop'];
-    rain = json['rain'];
+    pop = json['pop'].toDouble();
+    // rain = json['rain'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -177,7 +177,7 @@ class WeatherList {
     data['gust'] = this.gust;
     data['clouds'] = this.clouds;
     data['pop'] = this.pop;
-    data['rain'] = this.rain;
+    // data['rain'] = this.rain;
     return data;
   }
 }
@@ -229,7 +229,7 @@ class FeelsLike {
   FeelsLike({required this.day,required this.night,required this.eve,required this.morn});
 
   FeelsLike.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
+    day = json['day'].toDouble();
     night = json['night'];
     eve = json['eve'];
     morn = json['morn'];
