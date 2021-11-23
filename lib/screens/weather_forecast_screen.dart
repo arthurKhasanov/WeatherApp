@@ -3,6 +3,7 @@ import 'package:weather_app/api/weather_api.dart';
 import 'package:weather_app/models/weather_forecast_daily.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weather_app/widgets/city_view.dart';
+import 'package:weather_app/widgets/temp_view.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({Key? key}) : super(key: key);
@@ -12,17 +13,16 @@ class WeatherForecastScreen extends StatefulWidget {
 }
 
 class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
+  //Объект модели
   late Future<WeatherForecast> forecastObject;
   String _cityName = 'London';
 
   @override
   void initState() {
     super.initState();
+    //Получаем объект по городу
     forecastObject =
         WeatherApi().fetchWeatherForecatsWithCity(cityName: _cityName);
-    // forecastObject.then((weather) {
-    //   print(weather.list?[0].weather[0].main);
-    // });
   }
 
   @override
@@ -43,22 +43,30 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
           )
         ],
       ),
-      //TODO: Create UI
+      
       body: ListView(
         children: [
           Container(
+            //Используем FutureBuilder тк получаем объект Future<WeatherForecast>
             child: FutureBuilder<WeatherForecast>(
+              //Передаем объект модели
               future: forecastObject,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  //Передаем snapshot, который точно имеет данные
                   return Column(
                     children: [
                       SizedBox(height: 50),
+                      //Виджет с названием города и датой 
                       CityView(snapshot: snapshot),
+                      SizedBox(height: 50),
+                      //Виджет с иконкой погоды, погодой и описанием
+                      TempView(snapshot: snapshot),
                     ],
                   );
                 } else {
                   return const Center(
+                    //Пока данные не загружены на экране анимация загрузки 
                     child: SpinKitDoubleBounce(
                       color: Colors.black87,
                       size: 100.0,
