@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/api/weather_api.dart';
 import 'package:weather_app/models/weather_forecast_daily.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weather_app/widgets/buttom_list_view.dart';
 import 'package:weather_app/widgets/city_view.dart';
 import 'package:weather_app/widgets/detail_view.dart';
 import 'package:weather_app/widgets/temp_view.dart';
@@ -66,6 +67,9 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                       SizedBox(height: 50),
                       //Виджет с давлением, осадками и скоростью ветра
                       DetailView(snapshot: snapshot),
+                      SizedBox(height: 50),
+                      //Виджет с карточками погоды на 7 дней
+                      BottomListView(snapshot: snapshot),
                     ],
                   );
                 } else {
