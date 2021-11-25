@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast_daily.dart';
 import 'package:weather_app/utilities/forecast_util.dart';
 
-Widget forecastCard(AsyncSnapshot<WeatherForecast> snapshot, int index) {
-  var forecastList = snapshot.data!.list;
+
+class ForecastCard extends StatelessWidget {
+  ForecastCard({Key? key, required this.snapshot, required this.index}) : super(key: key);
+  AsyncSnapshot<WeatherForecast> snapshot;
+  int index;
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    var forecastList = snapshot.data!.list;
   var dayOfWeek = '';
   DateTime date =
       DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt * 1000);
@@ -12,7 +21,7 @@ Widget forecastCard(AsyncSnapshot<WeatherForecast> snapshot, int index) {
   var tempMin = forecastList[index].temp.min.round();
   var icon = forecastList[index].getIconUrl();
 
-  return Column(
+    return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -48,4 +57,5 @@ Widget forecastCard(AsyncSnapshot<WeatherForecast> snapshot, int index) {
       )
     ],
   );
+  }
 }

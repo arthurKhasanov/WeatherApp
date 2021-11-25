@@ -58,16 +58,16 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   //Передаем snapshot, который точно имеет данные
                   return Column(
                     children: [
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       //Виджет с названием города и датой 
                       CityView(snapshot: snapshot),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       //Виджет с иконкой погоды, погодой и описанием
                       TempView(snapshot: snapshot),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       //Виджет с давлением, осадками и скоростью ветра
                       DetailView(snapshot: snapshot),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       //Виджет с карточками погоды на 7 дней
                       BottomListView(snapshot: snapshot),
                     ],

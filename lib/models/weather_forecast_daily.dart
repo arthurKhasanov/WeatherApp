@@ -152,7 +152,7 @@ class WeatherList {
     }
     speed = json['speed'];
     deg = json['deg'];
-    gust = json['gust'];
+    gust = json['gust'].toDouble();
     clouds = json['clouds'];
     pop = json['pop'].toDouble();
   }
