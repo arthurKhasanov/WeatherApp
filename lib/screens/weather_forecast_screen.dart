@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/api/weather_api.dart';
 import 'package:weather_app/models/weather_forecast_daily.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weather_app/screens/city_screen.dart';
 import 'package:weather_app/widgets/buttom_list_view.dart';
 import 'package:weather_app/widgets/city_view.dart';
 import 'package:weather_app/widgets/detail_view.dart';
@@ -40,12 +41,24 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              var tappedCity = await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) {
+                return CityScreen();
+              }));
+              if (tappedCity != null) {
+                setState(() {
+                  _cityName = tappedCity;
+                forecastObject = WeatherApi()
+                    .fetchWeatherForecatsWithCity(cityName: _cityName);
+                });
+                
+              }
+            },
             icon: Icon(Icons.location_city),
           )
         ],
       ),
-      
       body: ListView(
         children: [
           Container(
@@ -59,7 +72,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   return Column(
                     children: [
                       const SizedBox(height: 50),
-                      //Виджет с названием города и датой 
+                      //Виджет с названием города и датой
                       CityView(snapshot: snapshot),
                       const SizedBox(height: 50),
                       //Виджет с иконкой погоды, погодой и описанием
@@ -74,7 +87,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   );
                 } else {
                   return const Center(
-                    //Пока данные не загружены на экране анимация загрузки 
+                    //Пока данные не загружены на экране анимация загрузки
                     child: SpinKitDoubleBounce(
                       color: Colors.black87,
                       size: 100.0,
