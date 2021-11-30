@@ -9,7 +9,9 @@ import 'package:weather_app/widgets/detail_view.dart';
 import 'package:weather_app/widgets/temp_view.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
-  const WeatherForecastScreen({Key? key}) : super(key: key);
+  WeatherForecastScreen({Key? key, required this.locationWeather})
+      : super(key: key);
+  WeatherForecast locationWeather;
 
   @override
   _WeatherForecastScreenState createState() => _WeatherForecastScreenState();
@@ -23,9 +25,10 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   @override
   void initState() {
     super.initState();
-    //Получаем объект по городу
-    forecastObject =
-        WeatherApi().fetchWeatherForecatsWithCity(cityName: _cityName);
+    //Получаем объект с погодой
+    if (widget.locationWeather != null) {
+      forecastObject = Future.value(widget.locationWeather);
+    }
   }
 
   @override
@@ -37,7 +40,11 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
         backgroundColor: Colors.black87,
         leading: IconButton(
           icon: Icon(Icons.my_location),
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              forecastObject = WeatherApi().fetchWeatherForecats();
+            });
+          },
         ),
         actions: [
           IconButton(
@@ -49,10 +56,9 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
               if (tappedCity != null) {
                 setState(() {
                   _cityName = tappedCity;
-                forecastObject = WeatherApi()
-                    .fetchWeatherForecatsWithCity(cityName: _cityName);
+                  forecastObject = WeatherApi()
+                      .fetchWeatherForecats(cityName: _cityName, isCity: true);
                 });
-                
               }
             },
             icon: Icon(Icons.location_city),

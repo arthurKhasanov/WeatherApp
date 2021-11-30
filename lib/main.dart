@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/location_screen.dart';
 
 import 'screens/weather_forecast_screen.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SafeArea(child: WeatherForecastScreen()),
+      home: SafeArea(child: LocationScreen()),
     );
   }
 }

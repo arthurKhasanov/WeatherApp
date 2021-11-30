@@ -150,7 +150,7 @@ class WeatherList {
         weather.add(Weather.fromJson(v));
       });
     }
-    speed = json['speed'];
+    speed = json['speed'].toDouble();
     deg = json['deg'];
     gust = json['gust'].toDouble();
     clouds = json['clouds'];
@@ -240,8 +240,8 @@ class FeelsLike {
 
   FeelsLike.fromJson(Map<String, dynamic> json) {
     day = json['day'].toDouble();
-    night = json['night'];
-    eve = json['eve'];
+    night = json['night'].toDouble();
+    eve = json['eve'].toDouble();
     morn = json['morn'].toDouble();
   }
 
